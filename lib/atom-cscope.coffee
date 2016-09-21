@@ -91,17 +91,8 @@ module.exports = AtomCscope =
 
       @historyNext = []
 
-      @printHistory()
       atom.workspace.open(@historyCurr.path, {initialLine: @historyCurr.line})
 
-  printHistory: ->
-    console.log "----------------------------------"
-    for i in @historyNext
-      console.log "n #{i.path}:#{i.line}"
-    console.log "> #{@historyCurr.path}:#{@historyCurr.line}"
-    for i in @historyPrev
-      console.log "p #{i.path}:#{i.line}"
-  
   togglePanelOption: (option) ->
     if @atomCscopeView.inputView.getSelectedOption() is option
       @toggle()
@@ -150,7 +141,6 @@ module.exports = AtomCscope =
     return if not next?
     @historyPrev.push @historyCurr if @historyCurr?
     @historyCurr = next
-    @printHistory()
     atom.workspace.open(next.path, {initialLine: next.line})
 
   goPrev: () ->
@@ -158,7 +148,6 @@ module.exports = AtomCscope =
     return if not prev?
     @historyNext.push @historyCurr if @historyCurr?
     @historyCurr = prev
-    @printHistory()
     atom.workspace.open(prev.path, {initialLine: prev.line})
 
   autoInputFromCursor: (option) ->
