@@ -8,6 +8,10 @@ module.exports = AtomCscope =
   modalPanel: null
   subscriptions: null
 
+  historyPrev: []
+  historyCurr: null
+  historyNext: []
+
   config:
     LiveSearch:
       title: 'Live Search toggle'
@@ -76,7 +80,27 @@ module.exports = AtomCscope =
           notifier.addError "Error: " + data.message
         
     @atomCscopeView.onResultClick (result) =>
-      atom.workspace.open(result.getFilePath(), {initialLine: (result.lineNumber - 1)})
+
+      if @historyCurr? and @historyCurr.keyword isnt result.keyword
+        @historyPrev.push @historyCurr
+
+      @historyCurr =
+        path: result.getFilePath()
+        line: result.lineNumber - 1
+        keyword: result.keyword
+
+      @historyNext = []
+
+      @printHistory()
+      atom.workspace.open(@historyCurr.path, {initialLine: @historyCurr.line})
+
+  printHistory: ->
+    console.log "----------------------------------"
+    for i in @historyNext
+      console.log "n #{i.path}:#{i.line}"
+    console.log "> #{@historyCurr.path}:#{@historyCurr.line}"
+    for i in @historyPrev
+      console.log "p #{i.path}:#{i.line}"
   
   togglePanelOption: (option) ->
     if @atomCscopeView.inputView.getSelectedOption() is option
@@ -116,6 +140,26 @@ module.exports = AtomCscope =
       'atom-cscope:find-file': => @autoInputFromCursor(7)
       'atom-cscope:find-files-including': => @autoInputFromCursor(8)
       'atom-cscope:find-assignments-to': => @autoInputFromCursor(9)
+
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      'atom-cscope:next': => @goNext()
+      'atom-cscope:prev': => @goPrev()
+
+  goNext: () ->
+    next = @historyNext.pop()
+    return if not next?
+    @historyPrev.push @historyCurr if @historyCurr?
+    @historyCurr = next
+    @printHistory()
+    atom.workspace.open(next.path, {initialLine: next.line})
+
+  goPrev: () ->
+    prev = @historyPrev.pop()
+    return if not prev?
+    @historyNext.push @historyCurr if @historyCurr?
+    @historyCurr = prev
+    @printHistory()
+    atom.workspace.open(prev.path, {initialLine: prev.line})
 
   autoInputFromCursor: (option) ->
     activeEditor = atom.workspace.getActiveTextEditor()
