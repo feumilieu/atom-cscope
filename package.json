@@ -1,8 +1,8 @@
 {
-  "name": "atom-cscope",
+  "name": "atom-cscope-stack",
   "main": "./lib/atom-cscope",
-  "version": "0.14.1",
-  "description": "Using cscope within Atom Code Editor CUZ I wanted one.",
+  "version": "0.0.0",
+  "description": "Using cscope within Atom Code Editor and keep track of the visited places",
   "keywords": [
     "cscope",
     "code browsing",
@@ -35,7 +35,7 @@
       "atom-cscope:prev"
     ]
   },
-  "repository": "https://github.com/amitab/atom-cscope",
+  "repository": "https://github.com/feumilieu/atom-cscope-stack",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
