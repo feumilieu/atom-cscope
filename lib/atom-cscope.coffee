@@ -26,7 +26,6 @@ module.exports = AtomCscope =
 
   setupEvents: () ->
     @viewModel.onSearch (params) =>
-      @history?.clearHistory()
 
       option = params.option
       keyword = params.keyword
@@ -53,13 +52,8 @@ module.exports = AtomCscope =
 
     @viewModel.onRefresh @refreshCscopeDB
     @viewModel.onResultClick (model) =>
-      @history?.saveCurrent() if @history?.isEmpty()
+      @history?.save model
       atom.workspace.open(model.projectDir, {initialLine: model.lineNumber - 1})
-      @history?.saveNew
-        path: model.projectDir
-        pos:
-          row: model.lineNumber - 1
-          column: 0
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
