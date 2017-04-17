@@ -9,13 +9,11 @@ class Navigation
 
   save: (model) ->
 
-    console.log model
-
     if not @historyCurr?
       @pushCurrentToHistoryPrev()
     else
       if @historyCurr.keyword?
-        if @historyCurr.keyword isnt model.keyword
+        if @historyCurr.keyword isnt model.functionName
           @historyPrevPush @historyCurr
           @pushCurrentToHistoryPrev()
       else
@@ -26,7 +24,7 @@ class Navigation
       pos:
         column: 0
         row: model.lineNumber - 1
-      keyword: model.keyword
+      keyword: model.functionName
 
     @historyNext = []
 
