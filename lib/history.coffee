@@ -15,6 +15,9 @@ class Navigation
     if not @historyCurr?
       @pushCurrentToHistoryPrev()
     else
+      # There should not exist two consecutive "from" locations in the stack,
+      # it is pointless.  If keyword is set, then the current location is a "to"
+      # location and it should be saved.
       if @historyCurr.keyword?
         # Check for the case when the cscope panel is still opened and we choose
         # another search result from it.  In this case we should not remember
