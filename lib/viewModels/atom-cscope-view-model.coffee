@@ -1,5 +1,6 @@
 {allowUnsafeNewFunction} = require 'loophole'
 Ractive = require 'ractive'
+keys = require 'ractive-events-keys'
 
 AtomCscopeView = require '../views/atom-cscope-view'
 AtomCscopeModel = require '../models/atom-cscope-model'
@@ -30,6 +31,8 @@ class AtomCscopeViewModel
         el: @view.target
         data: @model.data
         template: @view.template.toString()
+        events:
+          escape: keys.escape
 
     @view.initilaize()
     @setupEvents()

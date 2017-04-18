@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "loophole": "",
-    "ractive": "^0.8.10"
+    "ractive": "^0.8.10",
+    "ractive-events-keys": ""
   }
 }
