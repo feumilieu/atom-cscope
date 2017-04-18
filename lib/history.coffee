@@ -9,10 +9,16 @@ class Navigation
 
   save: (model) ->
 
+    if not model.functionName?
+      console.log "no functionName in model (?)"
+
     if not @historyCurr?
       @pushCurrentToHistoryPrev()
     else
       if @historyCurr.keyword?
+        # Check for the case when the cscope panel is still opened and we choose
+        # another search result from it.  In this case we should not remember
+        # the choice we made before.
         if @historyCurr.keyword isnt model.functionName
           @historyPrevPush @historyCurr
           @pushCurrentToHistoryPrev()
