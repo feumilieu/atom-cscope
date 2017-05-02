@@ -1,7 +1,6 @@
 {CompositeDisposable} = require 'atom'
 
 AtomCscopeModel = require './models/atom-cscope-model'
-AtomCscopeView = require './views/atom-cscope-view'
 AtomCscopeViewModel = require './viewModels/atom-cscope-view-model'
 cscope = require './cscope'
 config = require './config'
@@ -57,14 +56,7 @@ module.exports = AtomCscope =
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
-    @subscriptions.add atom.config.observe 'atom-cscope.EnableHistory', (newValue) =>
-      if newValue
-        atom.notifications.addInfo "Enabled Cscope history!"
-        @history = new History 10
-      else
-        atom.notifications.addInfo "Disabled Cscope history!"
-        @history = null
-
+    @history = new History 20
     @viewModel = new AtomCscopeViewModel @subscriptions
     @setupEvents()
 
@@ -73,8 +65,8 @@ module.exports = AtomCscope =
       'atom-cscope:switch-panes': => @viewModel.switchPanes() if @viewModel.isVisible()
       'atom-cscope:refresh-db': => @refreshCscopeDB()
       'atom-cscope:project-select': => @viewModel.view.openProjectSelector()
-      'atom-cscope:next': => @history?.openNext()
-      'atom-cscope:prev': => @history?.openPrev()
+      'atom-cscope:next': => @history.openNext()
+      'atom-cscope:prev': => @history.openPrev()
 
     @subscriptions.add atom.commands.add 'atom-workspace',
       'atom-cscope:toggle-symbol': => @viewModel.togglePanelOption(0)
