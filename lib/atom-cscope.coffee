@@ -53,7 +53,9 @@ module.exports = AtomCscope =
 
     @viewModel.onResultClick (model) =>
       @history?.save model
-      atom.workspace.open(model.projectDir, {initialLine: model.lineNumber - 1})
+      console.log "onResultClick callback"
+      atom.workspace.open(model.projectDir,
+        {initialLine: model.lineNumber - 1, activatePane: false})
 
   activate: (state) ->
     @subscriptions = new CompositeDisposable
