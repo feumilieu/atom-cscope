@@ -58,6 +58,7 @@ module.exports = AtomCscope =
         {initialLine: model.lineNumber - 1, activatePane: false})
 
   activate: (state) ->
+    console.log "Activate"
     @subscriptions = new CompositeDisposable
     @history = new History 20
     @viewModel = new AtomCscopeViewModel @subscriptions
@@ -112,5 +113,6 @@ module.exports = AtomCscope =
     @viewModel.invokeSearch(option, keyword)
 
   deactivate: ->
+    console.log "Deactivate"
     @viewModel.deactivate()
     @subscriptions.dispose()
