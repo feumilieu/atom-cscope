@@ -48,8 +48,7 @@ class AtomCscopeViewModel
   addPanel: () ->
     switch atom.config.get('atom-cscope.WidgetLocation')
       when 'bottom' then @modalPanel = atom.workspace.addBottomPanel(item: @view.getElement(), visible: false)
-      when 'top' then @modalPanel = atom.workspace.addTopPanel(item: @view.getElement(), visible: false)
-      else @modalPanel = atom.workspace.addTopPanel(item: @view.getElement(), visible: false)
+      else               @modalPanel = atom.workspace.addTopPanel(item: @view.getElement(), visible: false)
 
   setupEvents: () ->
     @model.onDataChange (itemName, newItem) =>
@@ -76,6 +75,7 @@ class AtomCscopeViewModel
     @ractive.on 'search-force', (event) =>
       newSearch = @view.getSearchParams()
       @performSearch newSearch
+
     @ractive.on 'path-select', (event) =>
       @view.input.focus()
 

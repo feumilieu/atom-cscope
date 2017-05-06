@@ -50,6 +50,7 @@ module.exports = AtomCscope =
         Promise.reject()
 
     @viewModel.onRefresh @refreshCscopeDB
+
     @viewModel.onResultClick (model) =>
       @history?.save model
       atom.workspace.open(model.projectDir, {initialLine: model.lineNumber - 1})
