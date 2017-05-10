@@ -48,8 +48,10 @@ class AtomCscopeViewModel
 
   addPanel: () ->
     switch atom.config.get('atom-cscope.WidgetLocation')
-      when 'bottom' then @modalPanel = atom.workspace.addBottomPanel(item: @view.getElement(), visible: false)
-      else               @modalPanel = atom.workspace.addTopPanel(item: @view.getElement(), visible: false)
+      when 'bottom'
+        @modalPanel = atom.workspace.addBottomPanel(item: @view.getElement(), visible: false)
+      else
+        @modalPanel = atom.workspace.addTopPanel(item: @view.getElement(), visible: false)
 
   setupEvents: () ->
     @model.onDataChange (itemName, newItem) =>
