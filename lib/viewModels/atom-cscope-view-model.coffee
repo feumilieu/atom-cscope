@@ -158,25 +158,16 @@ class AtomCscopeViewModel
 
   hide: ->
     @modalPanel.hide()
-    console.log "hide modal panel"
 
     if @newEditorPromise?
-      console.log "newEditorPromise"
       @newEditorPromise.then (e) ->
-        console.log "then"
         eview = atom.views.getView(e)
-        if eview?
-          console.log "there is some eview"
-        else
-          console.log "no eview"
         eview?.focus()
       .catch (e) ->
-        console.log "catch"
         eview = atom.views.getView(@prevEditor)
         eview?.focus()
       @newEditorPromise = null
     else
-      console.log "no newEditorPromise"
       eview = atom.views.getView(@prevEditor)
       eview?.focus()
 
