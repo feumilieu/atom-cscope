@@ -54,7 +54,7 @@ class Navigation
       @historyPrev.shift()
 
   openHistoryCurr: ->
-    atom.workspace.open(@historyCurr.path, {initialLine: @historyCurr.pos.row, initialColumn: @historyCurr.pos.column})
+    atom.workspace.open(@historyCurr.path, {initialLine: @historyCurr.pos.row, initialColumn: @historyCurr.pos.column, pending: true})
 
   openNext: ->
     next = @historyNext.pop()

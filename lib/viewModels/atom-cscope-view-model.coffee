@@ -16,6 +16,7 @@ class AtomCscopeViewModel
     option: null
     path: null
   ractive: null
+  newEditorPromise: null
 
   constructor: (subscriptions) ->
     @model = new AtomCscopeModel subscriptions
@@ -157,8 +158,17 @@ class AtomCscopeViewModel
 
   hide: ->
     @modalPanel.hide()
-    prevEditorView = atom.views.getView(@prevEditor)
-    prevEditorView?.focus()
+
+    if @newEditorPromise?
+      @newEditorPromise.then (e) ->
+        eview = atom.views.getView(e)
+        eview?.focus()
+      .catch (e) ->
+        eview = atom.views.getView(@prevEditor)
+        eview?.focus()
+    else
+      eview = atom.views.getView(@prevEditor)
+      eview?.focus()
 
   toggle: ->
     console.log 'Atom Cscope was toggled!'
