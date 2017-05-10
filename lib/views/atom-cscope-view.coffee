@@ -79,6 +79,7 @@ class AtomCscopeView
       @selectItemView (@currentSelection) % @resultList.childNodes.length
 
   selectPrev: () ->
+    console.log "selectPrev"
     newIndex = (@currentSelection - 1) % @resultList.childNodes.length
     newIndex += @resultList.childNodes.length if newIndex < 0
     @selectItemView newIndex

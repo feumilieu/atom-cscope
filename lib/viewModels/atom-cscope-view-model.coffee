@@ -135,11 +135,14 @@ class AtomCscopeViewModel
       path: null
 
   openResult: (index) ->
+    console.log "openResult"
     @resultClickCallback @model.data.results[index]
 
   onResultClick: (callback) ->
+    console.log "onResultClick"
     @resultClickCallback = callback
     @ractive.on 'result-click', (event) =>
+      console.log "ractive result-click callback"
       temp = event.resolve().split(".")
       model = @model.data.results[parseInt temp.pop()]
       @resultClickCallback model
