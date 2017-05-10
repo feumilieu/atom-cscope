@@ -53,7 +53,6 @@ module.exports = AtomCscope =
 
     @viewModel.onResultClick (model) =>
       @history?.save model
-      console.log "onResultClick callback"
       @viewModel.newEditorPromise = atom.workspace.open(model.projectDir,
         {initialLine: model.lineNumber - 1, activatePane: false, pending: true})
 
