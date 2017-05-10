@@ -38,13 +38,11 @@
         <li class="result-item flex-inline" on-click="result-click">
           <div class="flex-inline">
             <span class="project-directory">{{relativePath}}</span>
-            <span class="gap"></span>
-            <span class="file-name flex-inline">{{{fileName}}}</span>
           </div>
           {{#if !isJustFile}}
           <div class="flex-inline">
-            <span>:</span>
-            <span class="line-number bold">{{lineNumber}}</span>
+            :
+            <span class="line-number">{{lineNumber}}</span>
             <span class="gap"></span>
             <span class="highlight function-name">{{functionName}}</span>
             <span class="gap"></span>
